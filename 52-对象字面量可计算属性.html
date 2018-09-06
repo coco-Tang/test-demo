@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <button onclick="fn1()">播放音频1</button>
+  <button onclick="fn2()">暂停音频1</button>
+
+  <button onclick="fn3()">播放音频2</button>
+  <button onclick="fn4()">暂停音频2</button>
+
+  <button onclick="fn5()">播放音频3</button>
+  <button onclick="fn6()">暂停音频3</button>
+
+
+  <div id="wave"></div>
+  <div id="waveform"></div>
+
+  <script src="./node_modules/wavesurfer.js/dist/wavesurfer.min.js"></script>
+  <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/2.0.6/wavesurfer.min.js"></script> -->
+  <script>
+    // console.log(WaveSurfer)
+    // function a() {
+    //   // console.log(WaveSurfer)
+    //   return WaveSurfer.create({
+    //     container: `#waveform`,
+    //     waveColor: 'violet',
+    //     progressColor: 'purple'
+    //   })
+    // }
+    // a().load('audio/G.E.M.邓紫棋 - 光年之外.flac');
+    var wavesurfer = WaveSurfer.create({
+      container: '#waveform',
+      waveColor: 'violet',
+      progressColor: 'purple'
+    });
+    wavesurfer.load('audio/G.E.M.邓紫棋 - 光年之外.flac');
+
+
+
+    let fileArr = [
+      { id:  1,
+        url: 'audio/G.E.M.邓紫棋 - 光年之外.flac' 
+      },
+      { id:  2,
+        url: 'audio/何小萍-G-1.wav' 
+      },
+      { id:  3,
+        url: 'audio/顾敏-G-5.wav' 
+      },
+    ];
+    let len = fileArr.length;
+    let instanceArr = [];
+    fileArr.map( e => {
+      let container = document.createElement('div');
+      container.id = `waveform${e.id}`;
+      document.querySelector('#wave').appendChild(container);
+      let id = e.id;
+      let url = e.url;
+      createWavesurferInstance(id).load(url);
+      // instanceArr.push(createWavesurferInstance(id));
+    })
+
+    // console.log('instanceArr',instanceArr)
+    // instanceArr[0].load('audio/G.E.M.邓紫棋 - 光年之外.flac');
+    // instanceArr[0].play();
+
+
+
+    // let div = document.createElement('div');
+    // div.id = 'waveform1';
+    // document.querySelector('#wave').appendChild(div);
+
+    // createWavesurferInstance(1).load('audio/G.E.M.邓紫棋 - 光年之外.flac');
+    function createWavesurferInstance(id) {
+      // console.log('container', `#waveform${id}`)
+      return WaveSurfer.create({
+        container: `#waveform${id}`,
+        waveColor: 'violet',
+        progressColor: 'purple'
+      })
+    }
+
+
+
+    
+     
+
+
+    /* 绑定事件 */
+    let btns = document.querySelectorAll('button');
+    // console.log(btns);
+    btns.forEach( el => {
+      el.addEventListener('click',function(e) {
+        // console.log(e.target)
+      })
+    } )
+
+// return;
+    // console.log()
+
+
+    // for ( let i = 0; i < len; i++ ) {
+
+    // }
+    // let random = uuid();
+
+
+    // // console.log(Wavesurfer);
+    // function uuid() {
+    //   var i, random
+    //   var result = ''
+
+    //   for (var i = 0; i < 32; i++) {
+    //     random = Math.random() * 16 | 0
+    //     if (i === 8 || i === 12 || i === 16 || i === 20)
+    //       result += '-'
+    //     result += (i === 12 ? 4 : (i === 16 ? (random & 3 | 8) : random))
+    //       .toString(16)
+    //   }
+    //   return result
+    // }
+  </script>
+</body>
+
+</html>

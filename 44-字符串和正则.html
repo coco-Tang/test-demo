@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>字符串和正则</title>
+</head>
+<body>
+  <script>
+    function hasRegExpU() {
+      try {
+        var pattern = new RegExp(".","u");
+        return true;
+      } catch (ex) {
+        return false;
+      }
+    }
+    let msg = "Hello world!";
+    // console.log(msg.startsWith("Hello"));
+    // console.log(msg.startsWith("He"));
+    // console.log(msg.startsWith("H"));
+    // console.log(msg.endsWith("!"));
+    // console.log(msg.endsWith("!d"));//false
+    // console.log(msg.endsWith("d!"));//true
+    // console.log(msg.includes("w"));
+    // console.log(msg.includes("llo "));//true(空格)
+    // console.log(msg.includes("llo  "));//false 
+    // console.log(msg.includes("llo "))//true(Tab)
+
+
+    /* ----------------正则表达式---------------- */
+    let text = "hello1 hello2 hello3",
+        pattern = /hello\d\s?/,
+        result = pattern.exec(text),
+        globalPattern = /hello\d\s?/g,
+        globalResult = globalPattern.exec(text),
+        stickyPattern = /hello\d\s?/y,
+        stickyResult = stickyPattern.exec(text);
+
+        console.log(result);
+    
+  </script>
+</body>
+</html>

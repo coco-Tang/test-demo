@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>grid</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    html,body {
+      height: 100%;
+    }
+    #container {
+      display: grid;
+      width: 100%;
+      height: 100%;
+      /* grid: repeat(2, 60px) / auto-flow 80px; */
+      grid-template-columns: 70px 80px auto 80px 70px;
+      grid-template-rows: 25% 100px auto;
+    }
+    
+
+    #container>div {
+      
+      width: 50px;
+      height: 50px;
+    }
+    .child {
+      display: subgrid;
+      background-color: #8ca0ff;
+    }
+    .child >div {
+      /* background-color: red; */
+    }
+    .pink {
+      background-color: pink;
+    }
+    .red {
+      background-color: red;
+    }
+    .hotpink {
+      background-color: hotpink;
+    }
+    .cyan {
+      background-color: cyan;
+    }
+    .blue {
+      background-color: blue;
+    }
+    .green {
+      background-color: green;
+    }
+    .orange {
+      background-color: orange;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <div class="pink">1</div>
+    <div class="red">2</div>
+    <div class="hotpink">3</div>
+    <div class="cyan">4</div>
+    <div class="blue">5</div>
+    <div class="green">6</div>
+    <div class="orange">7</div>
+    <div class="pink">1</div>
+    <div class="red">2</div>
+    <div class="hotpink">3</div>
+    <div class="child">
+      <div>hh</div>
+      <span>aa</span>
+      <span>bb</span>
+      <span>cc</span>
+    </div>
+  </div>
+  <!-- <span>123</span> -->
+</body>
+
+</html>

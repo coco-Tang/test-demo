@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>箭头函数</title>
+</head>
+
+<body>
+  <script>
+    // function _isType(type) {
+    //   return function (target) {
+    //     toString.call(target) === '[object ' + type + ']'
+    //   }
+    // }
+    function _isType(type) {
+      return function (target) {
+        return toString.call(target) === '[object ' + type + ']'
+      }
+    }
+
+    // const _isType = type => target => toString.call(target) === '[object ' + type + ']'
+    const is_array = _isType('Array');
+    console.log(is_array([1, 2]));//true
+  </script>
+</body>
+
+</html>

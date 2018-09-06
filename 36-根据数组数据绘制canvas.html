@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    #canvas {
+      /* background: #462A2A; */
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas" width="800" height="300"></canvas>
+  <script>
+    let canvas = document.getElementById("canvas");
+    let ctx = canvas.getContext('2d');
+    let arr = [1,10,290,89,43,1893,7842,6798,682370,399,
+                1,10,290,89,43,1893,7842,6798,682370,3991,
+                10,290,89,43,1893,7842,6798,682370,3990,89,
+                43,1893,7841,10,290,89,43,1893,7842,6798,682370,
+                1,10,290,89,43,1893,7842,6798,682370,3991,
+                10,290,89,43,1893,7842,6798,682370,3990,89,
+                43,1893,784];
+    let cwidth = canvas.width;
+    let cheight = canvas.height -2;
+    console.log(cwidth,cheight);
+    for (let i = 0; i < arr.length; i++) {
+      let value = arr[i];
+      ctx.fillRect(i, cheight - value, 1, cheight)
+    }
+  </script>
+</body>
+
+</html>

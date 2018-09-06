@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>批量删除</title>
+</head>
+<body>
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="train">
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th><input type="checkbox" id="cbAll"></th>
+            <th>ID</th>
+            <th>UserName</th>
+            <th>CreatedTime</th>
+            <th>ModelSize</th>
+            <th>ModelCreateTime</th>
+          </tr>
+        </thead>
+        <tbody id="trainModel">
+          <tr>
+            <td><input type="checkbox"></td>
+            <td>ID</td>
+            <td>UserName</td>
+            <td>CreatedTime</td>
+            <td>ModelSize</td>
+            <td>ModelCreateTime</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td>ID</td>
+            <td>UserName</td>
+            <td>CreatedTime</td>
+            <td>ModelSize</td>
+            <td>ModelCreateTime</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td>ID</td>
+            <td>UserName</td>
+            <td>CreatedTime</td>
+            <td>ModelSize</td>
+            <td>ModelCreateTime</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td>ID</td>
+            <td>UserName</td>
+            <td>CreatedTime</td>
+            <td>ModelSize</td>
+            <td>ModelCreateTime</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td>ID</td>
+            <td>UserName</td>
+            <td>CreatedTime</td>
+            <td>ModelSize</td>
+            <td>ModelCreateTime</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td>ID</td>
+            <td>UserName</td>
+            <td>CreatedTime</td>
+            <td>ModelSize</td>
+            <td>ModelCreateTime</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td>ID</td>
+            <td>UserName</td>
+            <td>CreatedTime</td>
+            <td>ModelSize</td>
+            <td>ModelCreateTime</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td>ID</td>
+            <td>UserName</td>
+            <td>CreatedTime</td>
+            <td>ModelSize</td>
+            <td>ModelCreateTime</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td>ID</td>
+            <td>UserName</td>
+            <td>CreatedTime</td>
+            <td>ModelSize</td>
+            <td>ModelCreateTime</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="operation">
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModalAdd">添加样本</button>
+        <!-- Modal -->
+        <div class="modal fade" id="myModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">添加上传文件</h4>
+              </div>
+              <div class="modal-body">
+                <input type="file">
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary confirmadd">确定</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="btn btn-danger deleteModel">删除样本</button>
+        <button type="button" class="btn btn-success">训练</button>
+      </div>
+
+    </div>
+    <div role="tabpanel" class="tab-pane" id="history">
+      <!-- Nav tabs -->
+      <div class="wrapper">
+          <ul class="nav nav-tabs" role="tablist">
+              <li role="presentation" class="active"><a href="#sample" aria-controls="sample" role="tab" data-toggle="tab">sample</a></li>
+              <li role="presentation"><a href="#trains" aria-controls="trains" role="tab" data-toggle="tab">trains</a></li>
+              <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
+          </ul>
+      </div>
+
+
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="sample">
+            <div class="search">
+                <div class="start">
+                  <label>选择日期：开始时间</label>
+                  <div class="input-append date form_datetime">
+                    <input size="20" type="text" value="" readonly>
+                    <div>
+                      <span class="add-on"><i class="icon-remove glyphicon glyphicon-remove"></i></span>
+                    </div>
+                    <div>
+                      <span class="add-on"><i class="icon-th glyphicon glyphicon-th"></i></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="to">至</div>
+                <div class="end">
+                  <label>选择日期：结束时间</label>
+                  <div class="input-append date form_datetime">
+                    <input size="20" type="text" value="" readonly>
+                    <div><span class="add-on"><i class="icon-remove glyphicon glyphicon-remove"></i></span></div>
+                    <div><span class="add-on"><i class="icon-th glyphicon glyphicon-th"></i></span></div>
+                  </div>
+                </div>
+                <button type="button" class="btn btn-primary">搜索</button>
+              </div>
+              <table class="table table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th><input type="checkbox" id="cbAll"></th>
+                    <th>ID</th>
+                    <th>UserName</th>
+                    <th>CreatedTime</th>
+                    <th>lastLoginTime</th>
+                    <th>ModelCreateTime</th>
+                  </tr>
+                </thead>
+                <tbody id="tb">
+                  <tr>
+                    <td><input type="checkbox"  value="1"></td>
+                    <td>ID</td>
+                    <td><button type="button" class="btn btn-link">userName</button></td>
+                    <td>CreatedTime</td>
+                    <td>ModelSize</td>
+                    <td>ModelCreateTime</td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox"  value="2"></td>
+                    <td>ID</td>
+                    <td><button type="button" class="btn btn-link">userName</button></td>
+                    <td>CreatedTime</td>
+                    <td>ModelSize</td>
+                    <td>ModelCreateTime</td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox"  value="3"></td>
+                    <td>ID</td>
+                    <td><button type="button" class="btn btn-link">userName</button></td>
+                    <td>CreatedTime</td>
+                    <td>ModelSize</td>
+                    <td>ModelCreateTime</td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox"  value="4"></td>
+                    <td>ID</td>
+                    <td><button type="button" class="btn btn-link">userName</button></td>
+                    <td>CreatedTime</td>
+                    <td>ModelSize</td>
+                    <td>ModelCreateTime</td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox"  value="5"></td>
+                    <td>ID</td>
+                    <td><button type="button" class="btn btn-link">userName</button></td>
+                    <td>CreatedTime</td>
+                    <td>ModelSize</td>
+                    <td>ModelCreateTime</td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox"  value="6"></td>
+                    <td>ID</td>
+                    <td><button type="button" class="btn btn-link">userName</button></td>
+                    <td>CreatedTime</td>
+                    <td>ModelSize</td>
+                    <td>ModelCreateTime</td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox"  value="7"></td>
+                    <td>ID</td>
+                    <td><button type="button" class="btn btn-link">userName</button></td>
+                    <td>CreatedTime</td>
+                    <td>ModelSize</td>
+                    <td>ModelCreateTime</td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox"  value="8"></td>
+                    <td>ID</td>
+                    <td><button type="button" class="btn btn-link">userName</button></td>
+                    <td>CreatedTime</td>
+                    <td>ModelSize</td>
+                    <td>ModelCreateTime</td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox"  value="9"></td>
+                    <td>ID</td>
+                    <td><button type="button" class="btn btn-link">userName</button></td>
+                    <td>CreatedTime</td>
+                    <td>ModelSize</td>
+                    <td>ModelCreateTime</td>
+                  </tr>
+                </tbody>
+              </table>
+              <button class="btnClick">按钮</button>
+        </div>
+      </div>
+
+      
+    </div>
+  </div>
+  <script src="./jquery/jquery.min.js"></script>
+  <script>
+    $(".btnClick").on("click", function() {
+      var idList = [];
+      $("#tb input:checked").each(function(index,element){
+        idList.push($(element).val());
+      });
+      console.log(idList);
+    })
+    
+  </script>
+</body>
+</html>

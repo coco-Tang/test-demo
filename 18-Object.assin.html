@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>object.assign</title>
+</head>
+
+<body>
+  <script>
+    //1.为对象添加属性
+    class Person {
+      constructor(x, y) {
+        Object.assign(this, { x, y });
+      }
+    }
+    var p = new Person('hh', 18);
+    console.log(p.x, p.y);
+
+    //2.为对象添加方法
+    Object.assign(Person.prototype, {
+      sayHi(x) { console.log(x) },
+      sing(y) { console.log(y) }
+    })
+    var p = new Person();
+    p.sayHi('ll');
+    p.sing('dear friends');
+
+
+    //3.合并多个对象(???)
+    //3.1将多个对象合并到某个对象
+    // var target = {a: 'aa'};
+    // var sources = {a: 'aaa', b: 'bbb'};
+    // const merge = (target, ...sources) => Object.assign(target, ...sources);
+    // console.log(target.a,target.b);//aa undefined
+    // console.log(sources.a,sources.b);//aaa bbb
+    //3.2合并后返回一个新对象
+    // const merge = (...sources) => Object.assign({}, ...sources);
+    // var sources = {a: 'aaa', b: 'bbb'};
+    // console.log(merge.a);
+
+    //4.为属性指定默认值
+    // const DEFAULTS = {
+    //   logLevel: 0,
+    //   outputFormat: 'html'
+    // };
+    const DEFAULTS = {
+      url: {
+        host: 'example.com',
+        port: 7070
+      },
+    };
+    function processContent(options) {
+      options = Object.assign({}, DEFAULTS, options);
+      console.log(options);
+      // ...
+    }
+    processContent({  port: 8000  });
+    // processContent({ url: { port: 8000 } })
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>clipboard</title>
+</head>
+
+<body onkeypress="showChar(event);">
+  <div>测试节点1</div>
+  <div>测试节点2</div>
+  <div>测试节点3</div>
+  <div>测试节点4</div>
+  <div>测试节点5</div>
+  <script src="./jquery/jquery.min.js"></script>
+  <script>
+    // function showChar(e) {
+    //   alert(
+    //     "Key Pressed: " + String.fromCharCode(e.charCode) + "\n"
+    //     + "charCode: " + e.charCode + "\n"
+    //     + "CTRL key pressed: " + e.ctrlKey + "\n"
+    //   );
+    // }
+    //----------------------------------------------------------------------------------------------
+    var isCopy = false; //判断是否能执行'复制粘贴（新增）节点到dom'功能的判断条件,初始为false(不允许 )
+    $("div").each(function(i,e){
+      // console.log(i,e)
+      $(this).attr("tabindex",i)
+    })
+    // $("div").attr("tabindex", "0");
+    $("div").on("focus", function () {
+      console.log($(this));
+      // let DOMhtml = $($(this).)
+      $(this).on("keydown", function (event) {
+        if (event.ctrlKey) {
+          if (event.keyCode == 67) {
+            alert("你使用了Ctrl+C组合件功能！");
+            event.keyCode = 0;
+          }
+          if (event.keyCode == 86) {
+            alert("你使用了Ctrl+V组合件功能！")
+            if (!isCopy) {
+              var max = $(this).size() + 1;
+              var addId = "HKFlow_cnode_" + max;
+              // var type = $(this).find("b").attr("class").split("_")[1];
+              console.log(max,addId);
+              HKPM.addNode(addId, { name: "cnode_" + max, left: 38, top: 28, type: type });//调用增加节点方法函数，默认粘贴到画布左上角  
+
+            }
+          }
+        }
+      })
+    })
+  </script>
+</body>
+
+</html>

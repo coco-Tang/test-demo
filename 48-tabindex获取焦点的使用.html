@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    div {
+      background-color: pink;
+    }
+  </style>
+</head>
+<body>
+  <div class="test">
+    <div>我是div元素1</div>
+    <div tabindex="-1">我是div元素2</div>
+    <div tabindex="-1">我是div元素3</div>
+  </div>
+  <script src="./jquery/jquery.min.js"></script>
+  <script>
+    $(".test").on("focus", "div", function(){
+      console.log(this);
+    })
+    
+  </script>
+</body>
+</html>

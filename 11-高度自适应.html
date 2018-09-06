@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>高度自适应</title>
+</head>
+<style>
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .outer {
+    width: 100%;
+    height: 100%;
+    padding: 100px 0 0;
+    box-sizing: border-box;
+  }
+
+  .a {
+    height: 100px;
+    background-color: red;
+    margin: -100px 0 0;
+  }
+
+  .base {
+    height: 100%;
+    background-color: green;
+    overflow: auto;
+  }
+  table {
+    font-size: 50px;
+  }
+  tr {
+    height: 200px;
+  }
+</style>
+
+<body>
+  <div class="outer">
+    <div class="a"></div>
+    <div class="base">
+      <table border="1px solid #000">
+        <tr>
+          <th>123</th>
+          <th>456</th>
+        </tr>
+        <tr>
+          <td>hhhh</td>
+          <td>hhhh</td>
+        </tr>
+        <tr>
+          <td>hhhh</td>
+          <td>hhhh</td>
+        </tr>
+        <tr>
+          <td>hhhh</td>
+          <td>hhhh</td>
+        </tr>
+        <tr>
+          <td>hhhh</td>
+          <td>hhhh</td>
+        </tr>
+        <tr>
+          <td>hhhh</td>
+          <td>hhhh</td>
+        </tr>
+        <tr>
+          <td>hhhh</td>
+          <td>hhhh</td>
+        </tr>
+        <tr>
+          <td>hhhh</td>
+          <td>hhhh</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</body>
+
+</html>

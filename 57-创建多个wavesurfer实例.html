@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+    <button on-click="copy" class="copy">复制</button>
+    <button on-click="paste" class="paste">粘贴</button>
+    <button on-click="cut" class="cut">剪切</button>
+    <button on-click="play" class="play">播放</button>
+    <button on-click="pause" class="pause">暂停</button>
+    <!-- <button on-click="getSpec" class="getSpec" data-toggle="modal" data-target=".bs-example-modal-sm">频谱</button> -->
+    <button class="getSpec" data-toggle="modal" data-target="#myModal">频谱</button>
+    <button class="getCeps" data-toggle="modal" data-target="#myModal1">倒谱</button>
+    <div class="wrap">
+        <div id="waveform-1"></div>
+        <div id="waveform-timeline1"></div>
+        <div id="waveform-2"></div>
+        <div id="waveform-timeline2"></div>
+        <div id="waveform-3"></div>
+        <div id="waveform-timeline3"></div>
+        <div id="waveform-4"></div>
+        <div id="waveform-timeline4"></div>
+    </div>
+
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="myModal">
+        <div class="modal-dialog modal-sm" role="document">
+            <h4 class="modal-title" id="exampleModalLabel"></h4>
+            <div class="modal-content">
+                start:
+                <span class="start"></span></br>
+                end:
+                <span class="end"></span></br>
+                文件数据:
+                <span class="fileData"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="myModal1">
+        <div class="modal-dialog modal-sm" role="document">
+            <h4 class="modal-title" id="exampleModalLabel"></h4>
+            <div class="modal-content">
+                start:
+                <span class="start"></span></br>
+                end:
+                <span class="end"></span></br>
+                文件数据:
+                <span class="fileData"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div style="position: fixed;width: 500px;height: 100px;background-color: paleturquoise">
+        start:
+        <span class="start"></span></br>
+        end:
+        <span class="end"></span>
+
+    </div> -->
+        
+    </div>
+    
+    <script src="./node_modules/wavesurfer.js/dist/wavesurfer.min.js"></script>
+    <script src="./node_modules/wavesurfer.js/dist/plugin/wavesurfer.regions.min.js"></script>
+    <script src="./node_modules/wavesurfer.js/dist/plugin/wavesurfer.timeline.min.js"></script>
+    <script src="./jquery/jquery.min.js"></script>
+    <script src="./bootstrap/js/bootstrap.min.js"></script>
+    <script>
+        $(function() {
+            let instanceArr = [];
+            let idArr = [
+                {
+                    id: 1,
+                    url: "./audio/G.E.M.邓紫棋 - 光年之外.flac"
+                },
+                {
+                    id: 2,
+                    url: "./audio/何小萍-G-1.wav"
+                },
+                {
+                    id: 3,
+                    url: "./audio/陈硕琦-G-1.wav"
+                },
+                {
+                    id: 4,
+                    url: "./audio/顾敏-G-5.wav"
+                }
+            ];
+            // instanceArr.push(createWavesurferInstance(idArr[0]["id"]));
+            // instanceArr.push(createWavesurferInstance(idArr[1]["id"]));
+            // instanceArr.push(createWavesurferInstance(idArr[2]["id"]));
+            // instanceArr.push(createWavesurferInstance(idArr[3]["id"]));
+            idArr.forEach(el => instanceArr.push({ instance: createWavesurferInstance(el.id), url: el.url }));
+            // console.log(instanceArr[0]);
+            // instanceArr[0].load('./audio/G.E.M.邓紫棋 - 光年之外.flac');
+            // instanceArr[1].load('./audio/顾敏-G-5.wav');
+            // instanceArr[2].load('./audio/陈硕琦-G-4.wav');
+            // instanceArr[3].load('./audio/何小萍-G-1.wav');
+            // console.log('instanceArr',instanceArr);
+            instanceArr.forEach(el => el.instance.load(el.url));
+            instanceArr[0].instance.on('ready',function() {
+                instanceArr[0].instance.play();
+            })
+            // return
+
+            let activeIndex = 0;
+            let prevIndex;
+
+            $('.wrap').on('dblclick','div',function(e) {
+                // console.log(e.currentTarget.id);
+                //1.获取当前点击的下标
+                activeIndex = parseInt(e.currentTarget.id.slice(-1)) - 1;
+                //2.让所有的音频暂停,让当前下标的音频播放
+                instanceArr.forEach(el => el.instance.pause());
+                instanceArr[activeIndex]["instance"].play();
+                //3.让所有的音频清除可选区域,让当前音频可选
+                instanceArr.forEach(el => {
+                    el.instance.disableDragSelection();
+                    el.instance.clearRegions();
+                    document.querySelector(`#${el.instance.container.id}`).addEventListener("mousedown", () => {
+                        el.instance.clearRegions()
+                    });
+                });
+                instanceArr[activeIndex]["instance"].enableDragSelection({ color: "rgba(0, 180, 0, 0.3)" });
+                //4.让当前音频的鼠标交互功能打开
+                instanceArr[activeIndex]["instance"].params.interact = true;
+                // console.log('activeIndex',activeIndex);
+                
+
+            })
+
+            $('.cut').on('click',function() {
+                //1.让当前音频暂停
+                pause(instanceArr[activeIndex]["instance"]);
+
+            })
+
+            $('.play').on('click',function() {
+                play(instanceArr[activeIndex]["instance"]);
+            })
+
+            $('.pause').on('click',function() {
+                pause(instanceArr[activeIndex]["instance"]);
+            })
+
+            $('#myModal').on('shown.bs.modal', function (e) {
+                //1.获取选中区域起始值
+                let target = getTargetData(instanceArr[activeIndex]["instance"]);
+                //2.获取选中区域文件数据(float32Array)
+                let fileData = getRegionBuffer(instanceArr[activeIndex]["instance"],target);
+                //3.获取选中文件名
+                let fileName = instanceArr[activeIndex]["url"];
+                let modalData = { target, fileName, fileData };
+                // console.log('target',target);
+                // console.log('fileData',fileData);
+                $('#exampleModalLabel').text(`${modalData.fileName}频谱分析`);
+                $('.start').text(modalData.target.start);
+                $('.end').text(modalData.target.end);
+                // $('.fileData').text(modalData.fileData);
+            })
+
+            $('#myModal1').on('shown.bs.modal', function (e) {
+                //1.获取选中区域起始值
+                let target = getTargetData(instanceArr[activeIndex]["instance"]);
+                //2.获取选中区域文件数据
+                let fileData = getRegionBuffer(instanceArr[activeIndex]["instance"],target);
+                //3.获取选中文件名
+                let fileName = instanceArr[activeIndex]["url"];
+                let modalData = { target, fileName, fileData };
+                // console.log('target',target);
+                // console.log('fileData',fileData);
+                $('#exampleModalLabel').text(`${modalData.fileName}倒谱分析`);
+                $('.start').text(modalData.target.start);
+                $('.end').text(modalData.target.end);
+                // $('.fileData').text(modalData.fileData);
+            })
+
+        })
+        
+
+
+        function play(instance) {
+            instance.play();
+        }
+
+        function pause(instance) {
+            instance.pause();
+        }
+
+        function cut(instance,target) {
+            let restData = getCutData(instance,target)
+
+        }
+        
+        function updateView(instance,audioBuffer) {
+
+        }
+
+        function float2audio() {
+            
+        }
+       
+        function getTargetData(instance) {
+        //    console.log(instance.regions.list)
+           return getTarget(instance.regions.list);
+        }
+
+        function getCutData(instance,target) {
+            let data = getAllbuffer(instance);
+            let restData = [];
+            let cutData = [];
+            for (let num = 0; num < data.length; num++) {
+                let newArr = new Float32Array(data[num].length - (target.end - target.start));
+                let j = 0;
+
+                for (let i = 0; i < target.start; i++) {
+                    newArr[j++] = data[num][i];
+                }
+                for (let i = target.end; i < data[num].length; i++) {
+                    newArr[j++] = data[num][i];
+                }
+
+                restData.push(newArr);
+                cutData.push(data[num].subarray(target.start, target.end));
+            }
+
+            return { cutData, restData }
+       }
+
+        /* 获取视图上选中的数据(float32Array) */
+        function getRegionBuffer (instance,target) {
+            let regionData = [];
+            let data = getAllbuffer(instance);
+
+            for (let num = 0; num < data.length; num++) {
+                regionData.push(data[num].subarray(target.start, target.end));
+            }
+            
+            return regionData
+        }
+
+        /* 获取视图的buffer(float32Array) */
+        function getAllbuffer (instance) {
+            let buffer = instance.backend.buffer;
+            let data = [];
+            for (let i = 0; i < buffer.numberOfChannels; i++) {
+                data.push(buffer.getChannelData(i));
+            }
+            
+            return data;
+        }
+
+        /* 获取视图上选中的起始值 */
+        function getTarget (instance) {
+            let flag = false,
+                target,
+                start,
+                end;
+
+            for (let key in instance) {
+                if (!flag) {
+                    if (instance.hasOwnProperty(key)) {
+                        let region = instance[key];
+                        start = region.start;
+                        end = region.end;
+                        flag = true;
+                    }
+                } else {
+                    break;
+                }
+            }
+            if (flag) {
+                let sampleRate = 8000;
+                target = {
+                    start: ~~(start * sampleRate),
+                    end: ~~(end * sampleRate)
+                };
+            }
+            return target;
+        }
+
+        function createWavesurferInstance (id) {
+            return WaveSurfer.create({
+                        container: `#waveform-${id}`,
+                        waveColor: 'violet',
+                        progressColor: 'purple',
+                        interact: false,
+                        plugins: [
+                            // WaveSurfer.timeline.create({
+                            //     container: `#waveform-timeline${id}`,
+                            //     fontSize: 14,
+                            //     // primaryFontColor: "red",
+                            //     // secondaryFontColor: "#9499df",
+                            //     // primaryColor: "#fff",
+                            //     // secondaryColor: "#9499df"
+                            // }),
+                            WaveSurfer.regions.create({
+                                id: `#${id}`,
+                                color: "#4ada92",
+                                opacity: 0.25,
+                                dblclick: function(e) {console.log('dblclick ',e)}
+                            })
+                        ]
+                    });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>wavesurfer跨域</title>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/2.0.5/wavesurfer.min.js"></script>
+</head>
+
+<body>
+  <!-- <audio src="http://192.168.1.75:4000/ref_voice/zh_HU/NoteSpeech/H000002.wav"  autoplay loop> 播放</audio> -->
+  <div id="waveform" crossdomin></div>
+  <script src="./jquery/jquery.min.js"></script>
+  <script>
+    $(function () {
+      var wavesurfer = WaveSurfer.create({
+        container: '#waveform',
+        waveColor: 'violet',
+        progressColor: 'purple'
+      });
+      // wavesurfer.load('http://192.168.1.75:4000/ref_voice/zh_HU/NoteSpeech/H000002.wav');
+      wavesurfer.load('http://192.168.1.56:8080/voiceprint_ide/localvoice/20180411094806/%E6%88%98%E6%96%97%E5%A3%B0%E7%BA%B9.wav');
+      
+      wavesurfer.on('ready', function () {
+        wavesurfer.play();
+      });
+      // $.ajax({
+      //   url: 'http://localhost:9000/api/voicetest',
+      //   data: '',
+      //   type: 'get',
+      //   // dataType: 'json',
+      //   success: function (info) {
+      //     console.log(info);
+
+      //   }
+      // })
+    })
+  </script>
+</body>
+
+</html>

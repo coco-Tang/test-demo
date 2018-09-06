@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function Person(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        Person.prototype = {
+            constructor: Person,
+            sayHello: function () {
+                alert(this.name + 'say: I,m' + this.age);
+            }
+        }
+        let list = [];
+        list.push(new Person('coco',18));
+        list.push(new Person('tangtang',28));
+        // console.log('list',list[0].name);
+        // let p1 = new Person('coco', 18);
+        // let p2 = new Person('tangtang', 28);
+        // p1.sayHello();
+        // p2.sayHello();
+        
+        /* 覆盖 */
+        var person = new Person('cc',66);
+        var person = new Person('dd',88);
+        console.log('person',person);
+    </script>
+</body>
+
+</html>

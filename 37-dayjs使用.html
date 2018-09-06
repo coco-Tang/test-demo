@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>dayjs</title>
+</head>
+<body>
+  <script src="https://unpkg.com/dayjs"></script>
+  <script>
+    //返回时间戳
+    console.log(dayjs().format());
+    //返回现在的时间对象的所有信息
+    console.log(dayjs());
+    //返回传入时间对象的所有信息（国际标准时间表示法）
+    console.log(dayjs('1995-12-25'));
+    //返回传入时间对象的所有信息（时间戳）
+    console.log(dayjs(1318781876406));
+    //返回传入时间对象的所有信息（date对象）
+    console.log(dayjs(new Date(2018, 8, 18)));
+    //判断时间是否为有效值（暂未找到返回值为false）
+    console.log(dayjs( Date()).isValid());
+    //返回当前时间的年份
+    console.log(dayjs().year())
+    //返回当前时间的月份-1
+    console.log(dayjs().month())
+    //返回当前时间的日期
+    console.log(dayjs().date())
+    //返回当前时间的小时
+    console.log(dayjs().hour())
+    //返回当前时间的分钟
+    console.log(dayjs().minute())
+    //返回当前时间的秒数
+    console.log(dayjs().second())
+    //dayjs().set((unit: String), (value: Int));
+    //返回设置后的时间对象
+    console.log(dayjs().set('month', 3)); // April
+    dayjs().set('second', 30);
+    let obj = dayjs()
+                    .startOf('month')
+                    .add(1, 'day')
+                    .subtract(1, 'year');
+    console.log(obj)//Tue May 02 2017 00:00:00 GMT+0800 (中国标准时间)
+    let obj1 = dayjs()
+                    .add(1, 'day')
+                    .subtract(1, 'year');
+    console.log(obj1)
+  </script>
+</body>
+</html>

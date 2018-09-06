@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>导航栏固定</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0
+        }
+
+        img {
+            vertical-align: top;
+        }
+
+        .main {
+            margin: 0 auto;
+            width: 1000px;
+            height: 1000px;
+            margin-top: 10px;
+            background-color: blue;
+        }
+
+        .fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+        #topPart {
+            width: 100%;
+            height: 40px;
+            background-color: red;
+        }
+        #navBar {
+            width: 100%;
+            height: 50px;
+            background-color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="top" id="topPart">
+        <!-- <img src="images/top.png" alt="" /> -->
+    </div>
+    <div class="nav" id="navBar">
+        <!-- <img src="images/nav.png" alt="" /> -->
+    </div>
+    <div class="main" id="mainPart">
+        <!-- <img src="images/main.png" alt="" /> -->
+    </div>
+
+</body>
+<script>
+
+  var topPart = document.getElementById("topPart");
+  var navBar = document.getElementById("navBar");
+  var mainPart = document.getElementById("mainPart");
+
+
+  window.onscroll = function () {
+    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    if(scrollTop >= topPart.offsetHeight){
+      navBar.className = "fixed";
+      mainPart.style.marginTop = navBar.offsetHeight + 10 + "px";
+    }else {
+      navBar.className = "";
+      mainPart.style.marginTop = "10px";
+    }
+
+  }
+</script>
+</html>

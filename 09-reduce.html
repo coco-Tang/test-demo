@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>reduce</title>
+</head>
+
+<body>
+  <script>
+    /* 1.扁平化数组 */
+    var arr = [1, 2, 3, [3, 3, 3, [5, 4, 5, 6, 6, 7, 8]],
+      [333, 4444]
+    ];
+    function flatten(arr) {
+      return arr.reduce(function (pre, cur) {
+        if (!Array.isArray(cur)) {
+          return [...pre, cur];
+        } else {
+          return [...pre, ...flatten(cur)]
+        }
+      }, [])
+    }
+    console.log(flatten(arr))
+    /* 2.对数组进行操作 */
+    const numbers = [1, 3, 4, 7];
+    const doubledOver50 = numbers.reduce((numbers,num)=>{
+      num += num ** num;
+      if ( num > 50 ) {
+        numbers.push(num);
+      }
+      return numbers;
+    },[])
+    console.log(doubledOver50)
+    /* 3.对对象进行操作 */
+    const person = [
+      {name: 'zs',age: 18, gender: 'male'},
+      {name: 'ls',age: 29, gender: 'female'},
+      {name: 'zl',age: 12, gender: 'female'},
+      {name: 'al',age: 28, gender: 'male'}
+    ]
+    const ageOver20 = person.reduce((pre, cur)=>{
+      console.log(cur)
+      if(cur.age > 20) {
+        person.push(cur.age);
+      }
+    },[])
+    console.log(ageOver20)
+    /* 4.取出包含在对象中的数组 */
+    const routes = [
+      {
+        path: '/index',
+        children:[
+          {
+            path: '/list',
+            meta: {
+              requireAuth: true
+            }
+          },
+          {
+            path: '/menu'
+          }
+        ],
+        meta: {
+          requireAuth: true
+        }
+      },
+      {
+        path: '/home',
+        children:[
+          {
+            path: '/list'
+          },
+          {
+            path: '/menu',
+            meta: {
+              requireAuth: true
+            }
+          }
+        ],
+        meta: {
+          requireAuth: true
+        }
+      }
+    ]
+
+    const auth = routes.reduce((prev,curr)=>{
+      console.log(curr.children)
+      return [...prev, ...curr.children]
+    },[])
+    console.log(auth);
+  </script>
+</body>
+
+</html>
