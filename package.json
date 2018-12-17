@@ -10,8 +10,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "echarts": "^4.2.0-rc.1",
     "jQuery": "^1.7.4",
     "moment": "^2.22.1",
     "wavesurfer.js": "^2.0.6"
+  },
+  "devDependencies": {
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.1"
   }
 }

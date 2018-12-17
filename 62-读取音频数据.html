@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+        <canvas id='canvas'></canvas>
+    <script>
+        var url = "./audio/战斗声纹.wav"
+        var xhr = new XMLHttpRequest();
+        var AudioContext = new AudioContext();
+        xhr.open("GET", url);
+        xhr.responseType = "arraybuffer";
+        xhr.onload = function(data){
+        musicData = data.target.response;
+        musicData = AudioContext.decodeAudioData(musicData,function(buffer){
+            var analyser = AudioContext.createAnalyser(buffer);
+            var arr = new Uint8Array(analyser.frequencyBinCount);
+            // console.log(arr)
+            var bufferSource = AudioContext.createBufferSource();
+            bufferSource.connect(analyser);
+            analyser.connect(AudioContext.destination);
+            bufferSource.buffer = buffer;
+            bufferSource.start();
+            let pixels = [];
+            function v(){
+                //analyser.getByteFrequencyData 要求传入一个Uint8Array,并且我们让它不断的更新
+                audio = analyser.getByteFrequencyData(arr);
+                // pixels.push(arr)
+                requestAnimationFrame(v);
+                // console.log(pixels)
+            }
+            requestAnimationFrame(v);
+            // console.log(arr.length);
+            pixels = arr;
+            let canvas = document.querySelector('#canvas');
+            let ctx = canvas.getContext('2d');
+            canvas.width = 800;
+            canvas.height = 600;
+            let heightFactor = 3;//为3时 充满整个画布; 为2时，展画布的2/3;
+            for (let i = 0; i < pixels.length; i++) {
+                console.log(pixels[i].length)
+                for (let j = 0; j < pixels[i].length; j++) {
+                    const colorValue = 255 - pixels[i][j];
+                    ctx.fillStyle = 'rgb(' + colorValue + ',0 ,100)'//蓝底黑色
+                    ctx.fillRect(
+                    i,
+                    canvas.height - j * heightFactor,
+                    1,
+                    heightFactor
+                    );
+                    
+                }
+            }
+            });
+            }
+        xhr.send();    
+    </script>
+</body>
+</html>

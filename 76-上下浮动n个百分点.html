@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        for (var i = 0; i < 100; i++) {
+            console.log(range_arr(1, 5));
+            // range_arr(10, 5)
+        }
+        function range_arr(num, n) {
+            const start = num - n;
+            let step = start - 1;
+            let tmpArr = Array.apply(null, { length: Math.abs(n * 2 + 1) }).map(() => ++step);
+            let index = parseInt(Math.random() * (n * 2 + 1));
+            return Math.abs(tmpArr[index]);
+        }
+    </script>
+</body>
+
+</html>

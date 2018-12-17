@@ -27,13 +27,15 @@
         var obj = {
             name: "洪倩",
             age: 18,
-            birthday: new Date()
+            birthday: 1544765326
         }
+
+        console.log(new Date())
 
 
         template.defaults.imports.dateformatter = function(value, parttern){
             //将value 时间对象进行格式化之后返回
-            return moment(value).format(parttern)
+            return moment.unix(value).format(parttern)
         }
 
         var html = template("tpl", obj);

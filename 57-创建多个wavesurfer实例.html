@@ -13,6 +13,7 @@
     <button on-click="cut" class="cut">剪切</button>
     <button on-click="play" class="play">播放</button>
     <button on-click="pause" class="pause">暂停</button>
+    <button on-click="hot" class="hot">热词</button>
     <!-- <button on-click="getSpec" class="getSpec" data-toggle="modal" data-target=".bs-example-modal-sm">频谱</button> -->
     <button class="getSpec" data-toggle="modal" data-target="#myModal">频谱</button>
     <button class="getCeps" data-toggle="modal" data-target="#myModal1">倒谱</button>
@@ -106,6 +107,7 @@
             instanceArr[0].instance.on('ready',function() {
                 instanceArr[0].instance.play();
             })
+            
             // return
 
             let activeIndex = 0;
@@ -117,11 +119,12 @@
                 activeIndex = parseInt(e.currentTarget.id.slice(-1)) - 1;
                 //2.让所有的音频暂停,让当前下标的音频播放
                 instanceArr.forEach(el => el.instance.pause());
-                instanceArr[activeIndex]["instance"].play();
+                 
                 //3.让所有的音频清除可选区域,让当前音频可选
                 instanceArr.forEach(el => {
                     el.instance.disableDragSelection();
                     el.instance.clearRegions();
+                    el.instance.params.interact = false;
                     document.querySelector(`#${el.instance.container.id}`).addEventListener("mousedown", () => {
                         el.instance.clearRegions()
                     });
@@ -137,6 +140,18 @@
             $('.cut').on('click',function() {
                 //1.让当前音频暂停
                 pause(instanceArr[activeIndex]["instance"]);
+                //2.获取选中区域起始值
+                let target = getTargetData(instanceArr[activeIndex]["instance"]);
+                //3.获取选中区域文件数据(float32Array)
+                let fileData = getRegionBuffer(instanceArr[activeIndex]["instance"],target);
+                //4.获取剪切后的文件数据
+                let cutData = getCutData(instanceArr[activeIndex]["instance"],target);
+                //5.更新视图
+                updateView(instanceArr[activeIndex]["instance"],cutData);
+
+                console.log('cutData',cutData);
+                // console.log('fileData',fileData);
+                // console.log('resdata',restData.restData);
 
             })
 
@@ -180,6 +195,15 @@
                 // $('.fileData').text(modalData.fileData);
             })
 
+            $('.hot').on('click', function() {
+                instanceArr[activeIndex]["instance"].addRegion({
+                    start: 10,
+                    end: 20,
+                    color: "rgba(0,0,0,.5)",
+                    drag: false
+                })
+            })
+
         })
         
 
@@ -193,15 +217,38 @@
         }
 
         function cut(instance,target) {
-            let restData = getCutData(instance,target)
+            let restData = getCutData(instance,target);
+            // console.log('cutresdata',restData);
+            return restData
 
         }
         
-        function updateView(instance,audioBuffer) {
-
+        function updateView(instance,data) {
+            let audioBuffer = float2audio(instance,data);
+            console.log('audioBuffer',audioBuffer);
+            instance.loadDecodedBuffer(audioBuffer);
+            instance.pause();
+            instance.clearRegions();
         }
 
-        function float2audio() {
+        function float2audio(instance,data) {
+            let ctx = instance.backend.ac;
+            let audioBuffer;
+
+            if (data.length === 1) {
+                audioBuffer = ctx.createBuffer(1, data[0].length, 8000);
+                audioBuffer.copyToChannel(data[0], 0 , 0);
+            } else if (data.length === 2) {
+                audioBuffer = ctx.createBuffer(2, data[0].length, 8000);
+                audioBuffer.copyToChannel(data[0], 0 , 0);
+                audioBuffer.copyToChannel(data[1], 1 , 0);
+            }
+
+            if (!audioBuffer) {
+                throw new Error('audioBuffer转换失败')
+            } else {
+                return audioBuffer
+            }
             
         }
        
@@ -213,7 +260,7 @@
         function getCutData(instance,target) {
             let data = getAllbuffer(instance);
             let restData = [];
-            let cutData = [];
+            // let cutData = [];
             for (let num = 0; num < data.length; num++) {
                 let newArr = new Float32Array(data[num].length - (target.end - target.start));
                 let j = 0;
@@ -226,10 +273,10 @@
                 }
 
                 restData.push(newArr);
-                cutData.push(data[num].subarray(target.start, target.end));
+                // cutData.push(data[num].subarray(target.start, target.end));
             }
 
-            return { cutData, restData }
+            return restData 
        }
 
         /* 获取视图上选中的数据(float32Array) */

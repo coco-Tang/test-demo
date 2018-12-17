@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const audioContext = new AudioContext();
+        Object.defineProperty(audioContext,"sampleRate",{writable:true});
+        audioContext.sampleRate = 8000;
+        const audioContext1 = new AudioContext();
+        console.log('audiocontext1',audioContext1);
+        console.log('audiocontext1',audioContext1.sampleRate);
+
+    </script>
+</body>
+</html>
